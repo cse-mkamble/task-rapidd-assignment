@@ -1,0 +1,32 @@
+<div>
+    <div style="padding: 20px;">
+    <div style="margin: 20px 0;">
+            <kendo-grid [kendoGridBinding]="gridView" kendoGridSelectBy="EmployeeName" [selectedKeys]="mySelection"
+                [pageSize]="50" [pageable]="true" [sortable]="true" [groupable]="true" [reorderable]="true"
+                [resizable]="true" [height]="500" [columnMenu]="{ filter: true }">
+                <ng-template kendoGridToolbarTemplate>
+                    <input placeholder="Search in all columns..." kendoTextBox
+                        (input)="onFilter($event.target.value)" />
+                    <kendo-grid-spacer></kendo-grid-spacer>
+                </ng-template>
+                <kendo-grid-checkbox-column [width]="45" [headerClass]="{'text-center': true}"
+                    [class]="{'text-center': true}" [resizable]="false" [columnMenu]="false" showSelectAll="true">
+                </kendo-grid-checkbox-column>
+                <kendo-grid-column-group title="Employee" [columnMenu]="false">
+                    <kendo-grid-column field="EmployeeName" title="Employee Name"></kendo-grid-column>
+                    <kendo-grid-column field="TotalTime" title="Total Time"></kendo-grid-column>
+                </kendo-grid-column-group>
+            </kendo-grid>
+        </div>
+    </div>
+    <div>
+        <kendo-chart title="The total time worked by an employee in percentage.">
+            <kendo-chart-legend position="bottom"></kendo-chart-legend>
+            <kendo-chart-series>
+                <kendo-chart-series-item type="pie" [data]="gridView" field="TotalTime" categoryField="EmployeeName"
+                    [labels]="{ visible: true, content: labelContent }">
+                </kendo-chart-series-item>
+            </kendo-chart-series>
+        </kendo-chart>
+    </div>
+</div>
